@@ -1,6 +1,6 @@
 local apiUrl = {
 	['luarmor'] = 'https://sdkapi-public.luarmor.net/library.lua',
-	['serpexity'] = 'https://api.s3ren1ty.xyz/sdk-public_library.lua', -- inactive
+	['serpexity'] = 'https://api.s3ren1ty.xyz/sdk-public_library.lua',
 	['pandadevelopment'] = 'https://pandadevelopment.net',
 
 }
@@ -82,35 +82,28 @@ return {
 			return {
 				Verify = function(key)
 					local validatedAuth = apiUrl['pandadevelopment'] .. "/v2_validation?key=" .. tostring(key) .. "&service=" .. tostring(serviceId) .. "&hwid=" .. tostring(userIdentifier['userId'])
-                    local successCode, responseCode = pcall(function()
-                        return apiRequest({
-                            ['Url'] = validatedAuth,
-                            ['Method'] = 'GET',
-                            ['Headers'] = {["User-Agent"] = "Roblox/Exploit"}
-                        })
-                    end)
+                    local responseCode = apiRequest({
+                        ['Url'] = validatedAuth,
+                        ['Method'] = 'GET',
+                        ['Headers'] = {["User-Agent"] = "Roblox/Exploit"}
+                    })
 
-                    if successCode and responseCode then
-                        if responseCode.Success then
-                            local parseSuccess, parseBody = pcall(function()
-                                return game:GetService('HttpService'):JSONDecode(responseCode.Body)
-                            end)
-
-                            if parseSuccess and parseBody then
-                                if parseBody.V2_Authentication and parseBody.V2_Authentication == "success" then
-                                    return true, "Authenticated", parseBody["Key_Information"]["Premium_Mode"]
-                                else
-                                    return false, "Authentication failed: " .. parseBody.Key_Information.Notes or "Unknown reason", false
-                                end
+                    if responseCode and responseCode.Body then
+                        local parseBody = game:GetService('HttpService'):JSONDecode(responseCode.Body)
+                        if parseBody then
+                            if parseBody.V2_Authentication and parseBody.V2_Authentication == "success" then
+                                print('Auth Done!')
+                                return true, parseBody["Key_Information"]["Premium_Mode"]
                             else
-                                return false, "JSON decode error", false
+                                print('Auth Failed:', parseBody.Key_Information.Notes or "Unknown reason")
+                                return false, false
                             end
                         else
-                            warn("[Pelinda Ov2.5] HTTP request was not successful. Code: " .. tostring(successCode.StatusCode) .. " Message: " .. successCode.StatusMessage)
-                            return false, "HTTP request failed: " .. successCode.StatusMessage, false
+                            print('Parse JSON Failed!')
+                            return false, false
                         end
                     else
-                        return false, "Request pcall error", false
+                        return false, false
                     end
 				end,
 
