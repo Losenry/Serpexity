@@ -8,7 +8,7 @@ local SerplexBuilds = {
     ['discordInvite'] = 'BDFJUn4b4V',
 }
 
-local Serplex, Modules = loadstring(game:HttpGet("https://root.s3ren1ty.xyz/v1/files/srn/1399532e183bf347e3480c989d60d0b2.lua"))()
+local Serplex, Modules = loadstring(game:HttpGet("https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/sources.lua"))()
 local Window = Serplex:CreateWindow({
     Title = "Serplex Flow",
     Folder = "Serpexity",
