@@ -1017,7 +1017,7 @@ r.AbsoluteSize.Y
 	end
 
 	function a.h()
-		return loadstring(game:HttpGet('https://root.s3ren1ty.xyz/v1/files/srn/b5cdd56366f255b41b52558c08639193.lua'))();
+		return loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/auth.lua'))();
 	end
 
 	function a.j()
