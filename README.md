@@ -8,5 +8,4 @@
 # Support Key System
 - Luarmor
 - Panda Pelican
-- Junkie-Development ( In-Development )
 - Serplexity ( In-Development )
