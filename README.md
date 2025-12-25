@@ -8,4 +8,4 @@
 # Support Key System
 - Luarmor
 - Panda Pelican
-- Serplexity ( In-Development )
+- Serplexity Public
