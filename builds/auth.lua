@@ -1,6 +1,6 @@
 local apiUrl = {
 	['luarmor'] = 'https://sdkapi-public.luarmor.net/library.lua',
-	['serpexity'] = 'https://api.s3ren1ty.xyz/sdk-public_library.lua',
+	['serpexity'] = 'https://api.s3ren1ty.xyz/Init/sdk-public_library.lua',
 	['pandadevelopment'] = 'https://pandadevelopment.net',
 
 }
@@ -90,20 +90,21 @@ return {
 
                     if responseCode and responseCode.Body then
                         local parseBody = game:GetService('HttpService'):JSONDecode(responseCode.Body)
+                        print(parseBody, responseCode.Body)
                         if parseBody then
                             if parseBody.V2_Authentication and parseBody.V2_Authentication == "success" then
                                 print('Auth Done!')
                                 return true, parseBody["Key_Information"]["Premium_Mode"]
                             else
-                                print('Auth Failed:', parseBody.Key_Information.Notes or "Unknown reason")
-                                return false, false
+                                print('Auth Failed!')
+                                return false, "Authentication failed: " .. parseBody.Key_Information.Notes or "Unknown reason", false
                             end
                         else
                             print('Parse JSON Failed!')
-                            return false, false
+                            return false, "JSON decode error", false
                         end
                     else
-                        return false, false
+                        return false, "Request pcall error", false
                     end
 				end,
 
@@ -120,16 +121,42 @@ return {
 		Name = "Serpexity",
 		Icon = "rbxassetid://130918283130165",
 		Args = {
-			"DiscordId"
-		},
-		New = function()
+            'premium_module'
+        },
+		New = function(premium_module)
+            local Sources = apiRequest({
+                ['Url'] = apiUrl['serpexity'],
+                ['Method'] = 'GET',
+                ['Headers'] = {["User-Agent"] = "Roblox/Exploit"}
+            }).Body
+            
+            local Install = loadstring(Sources){};
+            local GetLink = Install.get_key()
 			return {
-				Verify = function()
-					
+				Verify = function(script_key)
+                    print(script_key);
+                    local validatedResponse = Install.auth_v1_init(script_key)
+                    if (validatedResponse.ok == true) then
+                        if (validatedResponse.code == "KEY_VALID") then
+                            if typeof(premium_module) == 'boolean' or typeof(premium_module) == "nil" then
+                                premium_module = validatedResponse.isPremium
+                            else
+                                getgenv().IsPremium = validatedResponse.isPremium
+                            end
+                            return true, "Whitelisted!"
+                        elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
+                            return false, "Key linked to a different HWID. Please reset it using our bot"
+                        elseif (validatedResponse.code == "KEY_INCORRECT") then
+                            return false, "Key is wrong or deleted!"
+                        else
+                            return false, "Key check failed:" .. validatedResponse.code
+                        end
+                    end
 				end,
 
 				Copy = function()
-
+                    if setclipboard then return setclipboard(GetLink) end
+                    print(GetLink)
 				end,
 			}
 		end,
