@@ -90,7 +90,6 @@ return {
 
                     if responseCode and responseCode.Body then
                         local parseBody = game:GetService('HttpService'):JSONDecode(responseCode.Body)
-                        print(parseBody, responseCode.Body)
                         if parseBody then
                             if parseBody.V2_Authentication and parseBody.V2_Authentication == "success" then
                                 print('Auth Done!')
@@ -121,9 +120,9 @@ return {
 		Name = "Serpexity",
 		Icon = "rbxassetid://74427403958006",
 		Args = {
-            'premium_module'
+            'PremiumConfig'
         },
-		New = function(premium_module)
+		New = function(PremiumConfig)
             local Sources = apiRequest({
                 ['Url'] = apiUrl['serpexity'],
                 ['Method'] = 'GET',
@@ -138,10 +137,10 @@ return {
                     local validatedResponse = Install.auth_v1_init(script_key)
                     if (validatedResponse.ok == true) then
                         if (validatedResponse.code == "KEY_VALID") then
-                            if typeof(premium_module) == 'boolean' or typeof(premium_module) == "nil" then
-                                premium_module = validatedResponse.isPremium
+                            if typeof(PremiumConfig) == 'boolean' or typeof(PremiumConfig) == "nil" then
+                                PremiumConfig = validatedResponse.isPremium
                             else
-                                getgenv().IsPremium = validatedResponse.isPremium
+                                getgenv()[PremiumConfig] = validatedResponse.isPremium
                             end
                             return true, "Whitelisted!"
                         elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
