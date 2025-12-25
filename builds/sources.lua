@@ -1,6 +1,4 @@
 -- [[ SR25: SERPEXITY - WIND  ]] --
-
-print('copyright by windui and edited by serpexity;')
 local a
 a = {
 	cache = {},
@@ -10721,6 +10719,7 @@ or tostring(ay.KeySystem.Key) == tostring(aF)
 	return aE
 end
 
+
 local SerplexLib = aa
 local SerplexCfg = {
     Ico = '',
@@ -10728,22 +10727,59 @@ local SerplexCfg = {
     BannerTheme = '',
 }
 
-pcall(function()
-    local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
-    local NebulaIcons = loadstring(game:HttpGetAsync("https://raw.nebulasoftworks.xyz/nebula-icon-library-loader"))()
-    SerplexLib.Creator.AddIcons("fluency",    NebulaIcons.Fluency)
-    SerplexLib.Creator.AddIcons("nebula",    NebulaIcons.nebulaIcons)
-    SerplexCfg['Theme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
-    SerplexCfg['BannerTheme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
-
-    if getcustomasset then
-        local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
-        local urIco = string.format('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/%s', fiIco)
-        writefile(fiIco, game:HttpGet(urIco))
-        repeat wait() until isfile(fiIco) == true
-        SerplexCfg['Ico'] = getcustomasset(fiIco)
+math.randomseed(os.clock())
+local BackgroundTheme
+local NebulaIcons
+task.spawn(function()
+    local ok, res = pcall(function()
+        return loadstring(game:HttpGetAsync(
+            'https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'
+        ))()
+    end)
+    if ok then
+        BackgroundTheme = res
     end
 end)
+
+task.spawn(function()
+    local ok, res = pcall(function()
+        return loadstring(game:HttpGetAsync(
+            'https://raw.nebulasoftworks.xyz/nebula-icon-library-loader'
+        ))()
+    end)
+    if ok then
+        NebulaIcons = res
+    end
+end)
+
+task.wait()
+if NebulaIcons then
+    SerplexLib.Creator.AddIcons("fluency", NebulaIcons.Fluency)
+    SerplexLib.Creator.AddIcons("nebula", NebulaIcons.nebulaIcons)
+end
+
+if BackgroundTheme then
+    local idx1 = math.random(#BackgroundTheme)
+    local idx2 = math.random(#BackgroundTheme)
+    SerplexCfg.Theme = BackgroundTheme[idx1]
+    SerplexCfg.BannerTheme = BackgroundTheme[idx2]
+end
+
+if getcustomasset and writefile then
+    local icoName = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
+    if not isfile(icoName) then
+        local url = 'https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/' .. icoName
+        local ok, body = pcall(function()
+            return game:HttpGetAsync(url)
+        end)
+        if ok then
+            writefile(icoName, body)
+        end
+    end
+    if isfile(icoName) then
+        SerplexCfg.Ico = getcustomasset(icoName)
+    end
+end
 
 _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
