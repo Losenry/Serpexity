@@ -119,7 +119,7 @@ return {
 
 	serpexity = {
 		Name = "Serpexity",
-		Icon = "rbxassetid://130918283130165",
+		Icon = "rbxassetid://74427403958006",
 		Args = {
             'premium_module'
         },
