@@ -1,4 +1,5 @@
 -- [[ SR25: SERPEXITY - WIND  ]] --
+print('[Library]: Initialized')
 local a
 a = {
 	cache = {},
@@ -69,8 +70,8 @@ do
 		local g = b(game:GetService"LocalizationService")
 		local h = b(game:GetService"HttpService")
 		local i = d.Heartbeat
-      local j = "https://root.s3ren1ty.xyz/v1/files/srn/340b6ae3875aa8f9ee2702957ba8d21c.lua"
-      local l = loadstring(game.HttpGetAsync and game:HttpGetAsync(j) or h:GetAsync(j))()
+      	local j = "https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/IconModule.lua"
+      	local l = loadstring(game.HttpGetAsync and game:HttpGetAsync(j) or h:GetAsync(j))()
 		l.SetIconsType"lucide"
 		local m
 		local p = {
@@ -10719,7 +10720,6 @@ or tostring(ay.KeySystem.Key) == tostring(aF)
 	return aE
 end
 
-
 local SerplexLib = aa
 local SerplexCfg = {
     Ico = '',
@@ -10727,59 +10727,23 @@ local SerplexCfg = {
     BannerTheme = '',
 }
 
-math.randomseed(os.clock())
-local BackgroundTheme
-local NebulaIcons
-task.spawn(function()
-    local ok, res = pcall(function()
-        return loadstring(game:HttpGetAsync(
-            'https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'
-        ))()
-    end)
-    if ok then
-        BackgroundTheme = res
+pcall(function()
+	local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
+    local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
+    local SerplexIco = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/IconAssets.lua"))()
+    SerplexLib.Creator.AddIcons("fluency",    SerplexIco.Fluency)
+    SerplexLib.Creator.AddIcons("nebula",    SerplexIco.nebulaIcons)
+    SerplexCfg['Theme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
+    SerplexCfg['BannerTheme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
+
+    if getcustomasset and not isfile(fiIco) then
+		print('[Library]: Uploading New Assets')
+        local urIco = string.format('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/%s', fiIco)
+        writefile(fiIco, game:HttpGet(urIco))
+        repeat wait() until isfile(fiIco) == true
+        SerplexCfg['Ico'] = getcustomasset(fiIco)
     end
 end)
-
-task.spawn(function()
-    local ok, res = pcall(function()
-        return loadstring(game:HttpGetAsync(
-            'https://raw.nebulasoftworks.xyz/nebula-icon-library-loader'
-        ))()
-    end)
-    if ok then
-        NebulaIcons = res
-    end
-end)
-
-task.wait()
-if NebulaIcons then
-    SerplexLib.Creator.AddIcons("fluency", NebulaIcons.Fluency)
-    SerplexLib.Creator.AddIcons("nebula", NebulaIcons.nebulaIcons)
-end
-
-if BackgroundTheme then
-    local idx1 = math.random(#BackgroundTheme)
-    local idx2 = math.random(#BackgroundTheme)
-    SerplexCfg.Theme = BackgroundTheme[idx1]
-    SerplexCfg.BannerTheme = BackgroundTheme[idx2]
-end
-
-if getcustomasset and writefile then
-    local icoName = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
-    if not isfile(icoName) then
-        local url = 'https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/' .. icoName
-        local ok, body = pcall(function()
-            return game:HttpGetAsync(url)
-        end)
-        if ok then
-            writefile(icoName, body)
-        end
-    end
-    if isfile(icoName) then
-        SerplexCfg.Ico = getcustomasset(icoName)
-    end
-end
 
 _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
