@@ -10721,12 +10721,7 @@ or tostring(ay.KeySystem.Key) == tostring(aF)
 end
 
 local SerplexLib = aa
-local SerplexCfg = {
-    Ico = '',
-    Theme = '',
-    BannerTheme = '',
-}
-
+local SerplexCfg = {Ico = '', Theme = '', BannerTheme = '',}
 pcall(function()
 	local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
     local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
@@ -10741,10 +10736,14 @@ pcall(function()
         local urIco = string.format('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/%s', fiIco)
         writefile(fiIco, game:HttpGet(urIco))
         repeat wait() until isfile(fiIco) == true
-        SerplexCfg['Ico'] = getcustomasset(fiIco)
     end
+
+	if isfile(fiIco) then
+		SerplexCfg['Ico'] = getcustomasset(fiIco)
+	end
 end)
 
 _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
+print('[Library]: Done!')
 return SerplexLib, SerplexCfg
