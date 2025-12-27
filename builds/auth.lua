@@ -143,6 +143,7 @@ return {
                             else
                                 getgenv()[PremiumConfig] = validatedResponse.isPremium
                             end
+							CoreUi:WaitForChild('Serpexity Progress'):Destroy()
                             return true, "Whitelisted!"
                         elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
                             return false, "Key linked to a different HWID. Please reset it using our bot"
