@@ -290,7 +290,7 @@ do
         Content = "This is notification version 1!"
     })
 
-    Serplex:Notification({Title = 'Serplex Flow', Content = 'This is notification version 2!', Icon = '6034837802'})
+    Serplex:Notification({Title = 'Serplex Flow', Content = 'This is notification version 2!', Icon = 'rbxassetid://6034837802'})
 end
 
 -- / * Page Example
