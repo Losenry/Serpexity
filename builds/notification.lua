@@ -242,7 +242,7 @@ function index.noti(options)
 	local notification = {}
 	local Icon = options.Icon or '6034837802'
 	local Title = options.Title or "Serenity's Teams"
-	local Desc = options.Desc or 'Loaded!'
+	local Desc = options.Desc or options.Content or 'Loaded!'
 	local Duration = options.Delay or options.Wait or options.Durations or options.Duration or 5
 	local Color = options.Color or configs.Theme['1']
 	local container = IsNotiUi()
