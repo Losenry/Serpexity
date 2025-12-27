@@ -10502,11 +10502,15 @@ end
 math.clamp(aa.TransparencyValue, 0, 1)
 
 local aw = aa.NotificationModule.Init(aa.NotificationGui)
-
+local sf = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/notification.lua'))();
 function aa.Notify(ax, ay)
 	ay.Holder = aw.Frame
 	ay.Window = aa.Window
 	return aa.NotificationModule.New(ay)
+end
+
+function aa.Notification(tbl)
+	return sf.noti(tbl)
 end
 
 function aa.SetNotificationLower(ax, ay)
