@@ -128,13 +128,14 @@ return {
                 ['Method'] = 'GET',
                 ['Headers'] = {["User-Agent"] = "Roblox/Exploit"}
             }).Body
-            
+
+			_G.Authorize = 'Z2P1'
             local Install = loadstring(Sources){};
-            local GetLink = Install.get_key()
+            local GetLink = Install.getkey()
 			return {
 				Verify = function(script_key)
                     print(script_key);
-                    local validatedResponse = Install.auth_v1_init(script_key)
+                    local validatedResponse = Install.check_key(script_key)
                     if (validatedResponse.ok == true) then
                         if (validatedResponse.code == "KEY_VALID") then
                             if typeof(PremiumConfig) == 'boolean' or typeof(PremiumConfig) == "nil" then
