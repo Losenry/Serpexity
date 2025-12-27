@@ -348,5 +348,4 @@ function index.noti(options)
     end)
 end
 
-index.noti({Title = 'Serplex Flow', Desc = 'HELLO WORLD!', Icon = '6034837802'})
 return index
