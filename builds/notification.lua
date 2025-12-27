@@ -240,7 +240,7 @@ end
 
 function index.noti(options)
 	local notification = {}
-	local Icon = options.Icon or '6034837802'
+	local Icon = options.Icon or 'rbxassetid://6034837802'
 	local Title = options.Title or "Serenity's Teams"
 	local Desc = options.Desc or options.Content or 'Loaded!'
 	local Duration = options.Delay or options.Wait or options.Durations or options.Duration or 5
@@ -268,7 +268,7 @@ function index.noti(options)
         Size = IsUDIM2(0.075, 0, 0.384, 0);
         Position = IsUDIM2(0.069, 0, 0.5, 0);
         AnchorPoint = IsVEC(0.5, 0.5);
-        Image = "rbxassetid://"..tostring(Icon);
+        Image = Icon;
         ImageColor3 = Color;
     })
     notification.Logo.Parent = notification.Frame
