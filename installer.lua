@@ -44,8 +44,10 @@ local Window = Serplex:CreateWindow({
     -- }
 })
 
-Window:Notification({Title = 'Serplex Flow', Desc = 'HELLO WORLD!', Icon = '6034837802'})
-Window:SetBackgroundImageTransparency(0.8)
+
+Window:SetBackgroundImageTransparency(0.8) -- / * Set Image Transparency in Background
+
+-- / * Tag
 do
     Window:Tag({
         Title = "PREMIUM",
@@ -81,6 +83,7 @@ do
     Serplex:SetTheme("Serplex")
 end
 
+-- / * Discord & Game Content Page
 do
     local AboutUs = Window:Tab({
         Title = "About Us",
@@ -280,125 +283,135 @@ do
     end
 end
 
-Window:Section({Title = "Main Sector", Icon = "nebula:sparkle"})
-local MainTab = Window:Tab({
-    Title = "General",
-    Icon = "solar:home-2-bold",
-    IconColor = Color3.fromHex("#83889E"),
-    IconShape = "Square",
-})
+-- / * Notification Log Example
+do        
+    Serplex:Notify({
+        Title = "Serplex Flow",
+        Content = "This is notification version 1!"
+    })
 
-MainTab:Section({
-    Title = "Basic Elements"
-})
+    Serplex:Notification({Title = 'Serplex Flow', Desc = 'This is notification version 2!', Icon = '6034837802'})
+end
 
-MainTab:Button({
-    Title = "Click Me!",
-    Desc = "This is a simple button",
-    Callback = function()
-        print("Button clicked!")
-        Serplex:Notify({
-            Title = "Success",
-            Content = "You clicked the button!"
-        })
-    end
-})
-
-MainTab:Space()
-MainTab:Toggle({
-    Title = "Enable Feature",
-    Desc = "Turn something on or off",
-    Default = false,
-    Callback = function(state)
-        print("Toggle is now:", state)
-    end
-})
-
-MainTab:Space()
-MainTab:Input({
-    Title = "Enter Text",
-    Placeholder = "Type here...",
-    Callback = function(text)
-        print("You entered:", text)
-    end
-})
-
-MainTab:Space()
-MainTab:Slider({
-    Title = "Value Slider",
-    Step = 1,
-    Value = {
-        Min = 0,
-        Max = 100,
-        Default = 50,
-    },
-    Callback = function(value)
-        print("Slider value:", value)
-    end
-})
-
-MainTab:Space()
-MainTab:Colorpicker({
-    Title = "Pick a Color",
-    Default = Color3.fromRGB(255, 0, 0),
-    Callback = function(color)
-        print("Selected color:", color)
-    end
-})
-
-MainTab:Space()
-local MyParagraph = MainTab:Paragraph({
-    Title = "Dynamic Paragraph",
-    Desc = "This paragraph can be updated!",
-    Image = "https://via.placeholder.com/150",
-})
-
-MainTab:Button({
-    Title = "Update Paragraph Title",
-    Callback = function()
-        MyParagraph.ParagraphFrame:SetTitle("Updated Title at " .. os.date("%H:%M:%S"))
-    end
-})
-
-MainTab:Button({
-    Title = "Update Paragraph Desc",
-    Callback = function()
-        MyParagraph.ParagraphFrame:SetDesc("New description updated at " .. os.date("%H:%M:%S"))
-    end
-})
-
-MainTab:Space()
-MainTab:Dropdown({
-    Title = "Select Option",
-    Values = {
-        {Title = "Option 1", Icon = "bird"},
-        {Title = "Option 2", Icon = "house"},
-        {Title = "Option 3", Icon = "star"},
-    },
-    AllowNone = true,
-    Multi = false,
-    Value = "Option 1",
-    Callback = function(option)
-        print("Selected:", option.Title)
-    end
-})
-
-MainTab:Dropdown({
-    Title = "Multi-Select Options",
-    Desc = "You can select multiple options",
-    Multi = true,
-    AllowNone = true,
-    Values = {
-        {Title = "Feature A", Icon = "check"},
-        {Title = "Feature B", Icon = "check"},
-        {Title = "Feature C", Icon = "check"},
-        {Title = "Feature D", Icon = "check"},
-    },
-    Callback = function(selectedOptions)
-        local titles = {}
-        for _, option in ipairs(selectedOptions) do
-            table.insert(titles, option.Title)
+-- / * Page Example
+do
+    Window:Section({Title = "Main Sector", Icon = "nebula:sparkle"}) -- / * Sector
+    
+    local MainTab = Window:Tab({
+        Title = "General",
+        Icon = "solar:home-2-bold",
+        IconColor = Color3.fromHex("#83889E"),
+        IconShape = "Square",
+    })
+    
+    MainTab:Section({
+        Title = "Basic Elements"
+    })
+    
+    MainTab:Button({
+        Title = "Click Me!",
+        Desc = "This is a simple button",
+        Callback = function()
+            print("Button clicked!")
         end
-        print("Selected:", table.concat(titles, ", "))
-    end
-})
+    })
+    
+    MainTab:Space()
+    MainTab:Toggle({
+        Title = "Enable Feature",
+        Desc = "Turn something on or off",
+        Default = false,
+        Callback = function(state)
+            print("Toggle is now:", state)
+        end
+    })
+    
+    MainTab:Space()
+    MainTab:Input({
+        Title = "Enter Text",
+        Placeholder = "Type here...",
+        Callback = function(text)
+            print("You entered:", text)
+        end
+    })
+    
+    MainTab:Space()
+    MainTab:Slider({
+        Title = "Value Slider",
+        Step = 1,
+        Value = {
+            Min = 0,
+            Max = 100,
+            Default = 50,
+        },
+        Callback = function(value)
+            print("Slider value:", value)
+        end
+    })
+    
+    MainTab:Space()
+    MainTab:Colorpicker({
+        Title = "Pick a Color",
+        Default = Color3.fromRGB(255, 0, 0),
+        Callback = function(color)
+            print("Selected color:", color)
+        end
+    })
+    
+    MainTab:Space()
+    local MyParagraph = MainTab:Paragraph({
+        Title = "Dynamic Paragraph",
+        Desc = "This paragraph can be updated!",
+        Image = "https://via.placeholder.com/150",
+    })
+    
+    MainTab:Button({
+        Title = "Update Paragraph Title",
+        Callback = function()
+            MyParagraph.ParagraphFrame:SetTitle("Updated Title at " .. os.date("%H:%M:%S"))
+        end
+    })
+    
+    MainTab:Button({
+        Title = "Update Paragraph Desc",
+        Callback = function()
+            MyParagraph.ParagraphFrame:SetDesc("New description updated at " .. os.date("%H:%M:%S"))
+        end
+    })
+    
+    MainTab:Space()
+    MainTab:Dropdown({
+        Title = "Select Option",
+        Values = {
+            {Title = "Option 1", Icon = "bird"},
+            {Title = "Option 2", Icon = "house"},
+            {Title = "Option 3", Icon = "star"},
+        },
+        AllowNone = true,
+        Multi = false,
+        Value = "Option 1",
+        Callback = function(option)
+            print("Selected:", option.Title)
+        end
+    })
+    
+    MainTab:Dropdown({
+        Title = "Multi-Select Options",
+        Desc = "You can select multiple options",
+        Multi = true,
+        AllowNone = true,
+        Values = {
+            {Title = "Feature A", Icon = "check"},
+            {Title = "Feature B", Icon = "check"},
+            {Title = "Feature C", Icon = "check"},
+            {Title = "Feature D", Icon = "check"},
+        },
+        Callback = function(selectedOptions)
+            local titles = {}
+            for _, option in ipairs(selectedOptions) do
+                table.insert(titles, option.Title)
+            end
+            print("Selected:", table.concat(titles, ", "))
+        end
+    })
+end
