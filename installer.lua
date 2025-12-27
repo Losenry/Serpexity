@@ -44,6 +44,7 @@ local Window = Serplex:CreateWindow({
     -- }
 })
 
+Window:Notification({Title = 'Serplex Flow', Desc = 'HELLO WORLD!', Icon = '6034837802'})
 Window:SetBackgroundImageTransparency(0.8)
 do
     Window:Tag({
