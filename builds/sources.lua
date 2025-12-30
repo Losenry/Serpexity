@@ -10510,7 +10510,7 @@ function aa.Notify(ax, ay)
 	return aa.NotificationModule.New(ay)
 end
 
-function aa.Notification(tbl)
+function aa.Notification(options)
 	local Icon = options.Icon or 'rbxassetid://6034837802'
 	local Title = options.Title or "Serenity's Teams"
 	local Desc = options.Desc or options.Content or 'Loaded!'
