@@ -141,12 +141,12 @@ return {
                     if (validatedResponse.ok == true) then
                         if (validatedResponse.code == "KEY_VALID") then
                             if typeof(PremiumConfig) == 'boolean' or typeof(PremiumConfig) == "nil" then
-                                PremiumConfig = validatedResponse.isPremium
+                                PremiumConfig = validatedResponse.isPremium or SERPXT_IsPremium or false
                             else
-                                getgenv()[PremiumConfig] = validatedResponse.isPremium
-								_G[PremiumConfig] = validatedResponse.isPremium
+                                getgenv()[PremiumConfig] = SERPXT_IsPremium or validatedResponse.isPremium or false
+								_G[PremiumConfig] = SERPXT_IsPremium or validatedResponse.isPremium or false
                             end
-
+							
                             pcall(function()
                                 if CoreGui:FindFirstChild('Serpexity Progress') then
                                     CoreGui:WaitForChild('Serpexity Progress'):Destroy()
