@@ -142,6 +142,7 @@ return {
                                 PremiumConfig = validatedResponse.isPremium
                             else
                                 getgenv()[PremiumConfig] = validatedResponse.isPremium
+								_G[PremiumConfig] = validatedResponse.isPremium
                             end
 							game:GetService('CoreGui'):WaitForChild('Serpexity Progress'):Destroy()
                             return true, "Whitelisted!"
