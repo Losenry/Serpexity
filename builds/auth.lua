@@ -71,6 +71,7 @@ local apiRequest = function(cons)
     return { Body = fallbackResult, body = fallbackResult }
 end
 
+local CoreGui = game:GetService('CoreGui')
 return {
 	pandadevelopment = {
 		Name = "Panda Development",
@@ -135,6 +136,8 @@ return {
 			return {
 				Verify = function(script_key)
                     print(script_key);
+                    getgenv()[PremiumConfig] = false; -- set to false
+					_G[PremiumConfig] = false; -- set to false
                     local validatedResponse = Install.check_key(script_key)
                     if (validatedResponse.ok == true) then
                         if (validatedResponse.code == "KEY_VALID") then
@@ -144,7 +147,9 @@ return {
                                 getgenv()[PremiumConfig] = validatedResponse.isPremium
 								_G[PremiumConfig] = validatedResponse.isPremium
                             end
-							game:GetService('CoreGui'):WaitForChild('Serpexity Progress'):Destroy()
+							if CoreGui:FindFirstChild('Serpexity Progress') then
+								CoreGui:WaitForChild('Serpexity Progress'):Destroy()
+							end
                             return true, "Whitelisted!"
                         elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
                             return false, "Key linked to a different HWID. Please reset it using our bot"
