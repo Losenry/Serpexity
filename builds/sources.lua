@@ -5497,11 +5497,11 @@ av
 					aw = av - au - 54
 				end
 				at.Position = UDim2.new(
-0,
-as.AbsolutePosition.X + as.AbsoluteSize.X,
-0,
-as.AbsolutePosition.Y + as.AbsoluteSize.Y - aw + (ao.MenuPadding * 2)
-)
+					0,
+					as.AbsolutePosition.X + as.AbsoluteSize.X,
+					0,
+					as.AbsolutePosition.Y + as.AbsoluteSize.Y - aw + (ao.MenuPadding * 2)
+				)
 			end
 			local as
 			function ar.Display(at)
@@ -5991,6 +5991,7 @@ true
 			end
 			aj.AddSignal((an.UIElements.Dropdown and an.UIElements.Dropdown.MouseButton1Click or an.DropdownFrame.UIElements.Main.MouseButton1Click), function()
 				ar:Open()
+				UpdatePosition()
 			end)
 			aj.AddSignal(ae.InputBegan, function(at)
 				if at.UserInputType == Enum.UserInputType.MouseButton1 or at.UserInputType == Enum.UserInputType.Touch then
