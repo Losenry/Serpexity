@@ -10511,7 +10511,13 @@ function aa.Notify(ax, ay)
 end
 
 function aa.Notification(tbl)
-	return sf.noti(tbl)
+	local Icon = options.Icon or 'rbxassetid://6034837802'
+	local Title = options.Title or "Serenity's Teams"
+	local Desc = options.Desc or options.Content or 'Loaded!'
+	local Duration = options.Delay or options.Wait or options.Durations or options.Duration or 5
+	local Color = options.Color or Color3.fromRGB(255,0,127)
+	sf.noti({Title = Title, Desc = Desc, Duration = Duration, Color = Color})
+	return
 end
 
 function aa.SetNotificationLower(ax, ay)
