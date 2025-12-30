@@ -1,4 +1,3 @@
--- new
 local apiUrl = {
 	['luarmor'] = 'https://sdkapi-public.luarmor.net/library.lua',
 	['serpexity'] = 'https://api.s3ren1ty.xyz/Init/sdk-public_library.lua',
@@ -147,9 +146,12 @@ return {
                                 getgenv()[PremiumConfig] = validatedResponse.isPremium
 								_G[PremiumConfig] = validatedResponse.isPremium
                             end
-							if CoreGui:FindFirstChild('Serpexity Progress') then
-								CoreGui:WaitForChild('Serpexity Progress'):Destroy()
-							end
+
+                            pcall(function()
+                                if CoreGui:FindFirstChild('Serpexity Progress') then
+                                    CoreGui:WaitForChild('Serpexity Progress'):Destroy()
+                                end
+                            end)
                             return true, "Whitelisted!"
                         elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
                             return false, "Key linked to a different HWID. Please reset it using our bot"
