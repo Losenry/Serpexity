@@ -10758,7 +10758,7 @@ _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
 
 do
-    Serplex:AddTheme({
+    SerplexLib:AddTheme({
         Name = "Serplex",
         Dialog = Color3.fromHex("#0b0b14"),
         Accent = Color3.fromHex("#15162c"),
