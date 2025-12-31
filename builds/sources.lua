@@ -10756,5 +10756,30 @@ end)
 
 _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
+
+do
+    Serplex:AddTheme({
+        Name = "Serplex",
+        Dialog = Color3.fromHex("#0b0b14"),
+        Accent = Color3.fromHex("#15162c"),
+        Outline = Color3.fromHex("#e879f9"),
+        ElementIcon = Color3.fromHex("#f472b6"),
+        WindowBackground = Color3.fromHex("#0f1020"),
+        Text = Color3.fromHex("#f5f3ff"),
+        Placeholder = Color3.fromHex("#a1a1aa"),
+        Button = Color3.fromHex("#1b1b33"),
+        Icon = Color3.fromHex("#93c5fd"),
+        TopbarButtonIcon = Color3.fromHex("#c084fc"),
+        TopbarTitle = Color3.fromHex("#f5f3ff"),
+        TopbarAuthor = Color3.fromHex("#a1a1aa"),
+        TopbarIcon = Color3.fromHex("#a78bfa"),
+        TabBackground = Color3.fromHex("#15162c"),
+        TabTitle = Color3.fromHex("#f5f3ff"),
+        TabIcon = Color3.fromHex("#d8b4fe"),
+        ElementBackground = Color3.fromHex("#93c5fd"),
+        ElementTitle = Color3.fromHex("#f5f3ff"),
+        ElementDesc = Color3.fromHex("#c7c7d1"),
+    })
+end
 print('[Library]: Done!')
 return SerplexLib, SerplexCfg
