@@ -1,6 +1,6 @@
 local apiUrl = {
 	['luarmor'] = 'https://sdkapi-public.luarmor.net/library.lua',
-	['serpexity'] = 'https://api.s3ren1ty.xyz/Init/sdk-public_library.lua',
+	['serpexity'] = 'https://srph.s3ren1ty.xyz/auth/XerFlow',
 	['pandadevelopment'] = 'https://pandadevelopment.net',
 }
 
@@ -123,49 +123,34 @@ return {
             'PremiumConfig'
         },
 		New = function(PremiumConfig)
-            local Sources = apiRequest({
-                ['Url'] = apiUrl['serpexity'],
-                ['Method'] = 'GET',
-                ['Headers'] = {["User-Agent"] = "Roblox/Exploit"}
-            }).Body
-
-			_G.Authorize = 'Z2P1'
-            local Install = loadstring(Sources){};
-            local GetLink = Install.getkey()
 			return {
 				Verify = function(script_key)
-                    print(script_key);
-                    getgenv()[PremiumConfig] = false; -- set to false
-					_G[PremiumConfig] = false; -- set to false
-                    local validatedResponse = Install.check_key(script_key)
-                    if (validatedResponse.ok == true) then
-                        if (validatedResponse.code == "KEY_VALID") then
-                            if typeof(PremiumConfig) == 'boolean' or typeof(PremiumConfig) == "nil" then
-                                PremiumConfig = validatedResponse.isPremium or SERPXT_IsPremium or false
+                    local validatedAuth = string.format('%s/%s/external?id=%s&t=%s&c=raw', apiUrl['serpexity'], script_key, tostring(userIdentifier['userHwid']), tostring(math.random(10000000, 20000000)))
+                    local validatedResponse = apiRequest({['Url'] = validatedAuth, ['Method'] = 'GET',})
+                    if validatedResponse and validatedResponse.Body then
+                        local parseBody = game:GetService('HttpService'):JSONDecode(validatedResponse.Body)
+                        if parseBody then
+                            if parseBody.x and parseBody.x == "KEY_VALID" then
+                                getgenv()[PremiumConfig] = parseBody.r or false
+								_G[PremiumConfig] = parseBody.r or false
+                                return true, parseBody.r
                             else
-                                getgenv()[PremiumConfig] = SERPXT_IsPremium or validatedResponse.isPremium or false
-								_G[PremiumConfig] = SERPXT_IsPremium or validatedResponse.isPremium or false
+                                print('Auth Failed!')
+                                return false, "Authentication failed: " .. parseBody.Key_Information.Notes or "Unknown reason", false
                             end
-							
-                            pcall(function()
-                                if CoreGui:FindFirstChild('Serpexity Progress') then
-                                    CoreGui:WaitForChild('Serpexity Progress'):Destroy()
-                                end
-                            end)
-                            return true, "Whitelisted!"
-                        elseif (validatedResponse.code == "KEY_HWID_LOCKED") then
-                            return false, "Key linked to a different HWID. Please reset it using our bot"
-                        elseif (validatedResponse.code == "KEY_INCORRECT") then
-                            return false, "Key is wrong or deleted!"
                         else
-                            return false, "Key check failed:" .. validatedResponse.code
+                            print('Parse JSON Failed!')
+                            return false, "JSON decode error", false
                         end
+                    else
+                        return false, "Request pcall error", false
                     end
 				end,
 
 				Copy = function()
-                    if setclipboard then return setclipboard(GetLink) end
-                    print(GetLink)
+                    local getkeyAuth = apiUrl['serpexity'] .. "/getkey"
+                    if setclipboard then return setclipboard(getkeyAuth) end
+                    print(getkeyAuth)
 				end,
 			}
 		end,
