@@ -136,7 +136,7 @@ return {
                                 return true, parseBody.r
                             else
                                 print('Auth Failed!')
-                                return false, "Authentication failed: " .. parseBody.Key_Information.Notes or "Unknown reason", false
+                                return false, "Authentication failed: " .. validatedResponse.Body or "Unknown reason", false
                             end
                         else
                             print('Parse JSON Failed!')
