@@ -346,6 +346,7 @@ function index.noti(options)
             notification.Frame:Destroy()
         end)
     end)
+	return notification
 end
 
 return index
