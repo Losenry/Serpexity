@@ -10733,7 +10733,7 @@ end
 
 local SerplexLib = aa
 local SerplexCfg = {Ico = '', Theme = '', BannerTheme = '',}
-task.spawn(function()
+-- task.spawn(function()
 	pcall(function()
 		local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
 	    local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
@@ -10754,7 +10754,7 @@ task.spawn(function()
 			SerplexCfg['Ico'] = getcustomasset(fiIco)
 		end
 	end)
-end)
+-- end)
 
 _G.SerplexCfg = SerplexCfg
 _G.SerplexLib = SerplexLib
