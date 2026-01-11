@@ -10733,25 +10733,27 @@ end
 
 local SerplexLib = aa
 local SerplexCfg = {Ico = '', Theme = '', BannerTheme = '',}
-pcall(function()
-	local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
-    local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
-    local SerplexIco = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/IconAssets.lua"))()
-    SerplexLib.Creator.AddIcons("fluency",    SerplexIco.Fluency)
-    SerplexLib.Creator.AddIcons("nebula",    SerplexIco.nebulaIcons)
-    SerplexCfg['Theme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
-    SerplexCfg['BannerTheme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
-
-    if getcustomasset and not isfile(fiIco) then
-		print('[Library]: Uploading New Assets')
-        local urIco = string.format('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/%s', fiIco)
-        writefile(fiIco, game:HttpGet(urIco))
-        repeat wait() until isfile(fiIco) == true
-    end
-
-	if isfile(fiIco) then
-		SerplexCfg['Ico'] = getcustomasset(fiIco)
-	end
+task.spawn(function()
+	pcall(function()
+		local fiIco = 'SerenityAct' .. tostring(math.random(1, 4)) .. '.png'
+	    local BackgroundTheme = loadstring(game:HttpGet('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/bgd.lua'))();
+	    local SerplexIco = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Losenry/Serpexity/refs/heads/main/builds/IconAssets.lua"))()
+	    SerplexLib.Creator.AddIcons("fluency",    SerplexIco.Fluency)
+	    SerplexLib.Creator.AddIcons("nebula",    SerplexIco.nebulaIcons)
+	    SerplexCfg['Theme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
+	    SerplexCfg['BannerTheme'] = BackgroundTheme[math.random(1, #BackgroundTheme)]
+	
+	    if getcustomasset and not isfile(fiIco) then
+			print('[Library]: Uploading New Assets')
+	        local urIco = string.format('https://raw.githubusercontent.com/Losenry/seraph.loader/refs/heads/main/Library/Icons/%s', fiIco)
+	        writefile(fiIco, game:HttpGet(urIco))
+	        repeat wait() until isfile(fiIco) == true
+	    end
+	
+		if isfile(fiIco) then
+			SerplexCfg['Ico'] = getcustomasset(fiIco)
+		end
+	end)
 end)
 
 _G.SerplexCfg = SerplexCfg
